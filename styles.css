@@ -1,6 +1,6 @@
 /* ----------------------------------------------------
-   FINTHREX ADVISORY - LUXURY CREAM THEME & STYLESHEET
-   Theme: Warm Ivory, Cream, Deep Charcoal & Metallic Gold
+   FINTHREX ADVISORY - LUXURY CREAM THEME & 3D STYLESHEET
+   Theme: Warm Ivory, Cream, Deep Charcoal, Metallic Gold & 3D WebGL Effects
    ---------------------------------------------------- */
 
 :root {
@@ -41,7 +41,7 @@
   --shadow-sm: 0 4px 12px rgba(44, 34, 18, 0.05);
   --shadow-md: 0 8px 24px rgba(44, 34, 18, 0.08);
   --shadow-lg: 0 16px 40px rgba(44, 34, 18, 0.12);
-  --shadow-glow: 0 0 25px rgba(184, 134, 11, 0.15);
+  --shadow-3d: 0 20px 45px rgba(27, 122, 130, 0.18), 0 8px 18px rgba(184, 134, 11, 0.12);
 
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,7 +160,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 
 .btn-primary:hover {
   background: linear-gradient(135deg, #22939c 0%, var(--accent-teal) 100%);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(10px);
   box-shadow: 0 8px 22px rgba(27, 122, 130, 0.35);
 }
 
@@ -175,7 +175,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   background: #ffffff;
   border-color: var(--accent-teal);
   color: var(--accent-teal-dark);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(10px);
   box-shadow: var(--shadow-sm);
 }
 
@@ -188,7 +188,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 
 .btn-gold:hover {
   background: linear-gradient(135deg, #d4af37 0%, var(--accent-gold) 100%);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(10px);
   box-shadow: 0 8px 22px rgba(184, 134, 11, 0.35);
 }
 
@@ -291,13 +291,14 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   cursor: pointer;
 }
 
-/* Hero Section */
+/* Hero Section & 3D Stage */
 .hero {
   padding-top: 160px;
   padding-bottom: 100px;
   position: relative;
   overflow: hidden;
   background-color: var(--bg-cream-page) !important;
+  perspective: 1200px;
 }
 
 .hero-grid {
@@ -382,14 +383,34 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 
 .hero-media {
   position: relative;
+  perspective: 1200px;
+}
+
+/* Interactive 3D WebGL Canvas Stage */
+.hero-3d-stage {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: calc(100% + 100px);
+  height: calc(100% + 100px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.hero-3d-stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .hero-card {
   position: relative;
+  z-index: 1;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-3d);
+  border: 1px solid var(--border-gold);
   background: var(--bg-cream-card);
 }
 
@@ -402,7 +423,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 }
 
 .hero-card:hover .hero-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .hero-overlay {
@@ -428,11 +449,24 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   margin-top: 4px;
 }
 
+/* 3D Tilt Cards Dynamic Perspective */
+.tilt-3d-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-3d-card:hover {
+  box-shadow: var(--shadow-3d);
+  border-color: var(--border-teal);
+}
+
 /* Glassmorphism & Section Style */
 .section {
   padding: 90px 0;
   position: relative;
   background-color: var(--bg-cream-page);
+  perspective: 1200px;
 }
 
 .section-header {
@@ -479,6 +513,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 28px;
+  perspective: 1000px;
 }
 
 .practice-card {
@@ -486,7 +521,6 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 36px 30px;
-  transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -502,13 +536,6 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   background: linear-gradient(90deg, var(--accent-teal) 0%, var(--accent-gold) 100%);
   opacity: 0;
   transition: var(--transition-fast);
-}
-
-.practice-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--border-teal);
-  box-shadow: var(--shadow-md);
-  background: var(--bg-cream-elevated) !important;
 }
 
 .practice-card:hover::before {
@@ -527,12 +554,14 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   color: var(--accent-teal-dark);
   font-size: 1.5rem;
   margin-bottom: 24px;
+  transform: translateZ(20px);
 }
 
 .practice-title {
   margin-bottom: 12px;
   font-family: var(--font-sans);
   color: var(--text-heading);
+  transform: translateZ(15px);
 }
 
 .practice-desc {
@@ -540,6 +569,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   line-height: 1.6;
   margin-bottom: 24px;
   color: var(--text-muted);
+  transform: translateZ(10px);
 }
 
 .card-link {
@@ -551,6 +581,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   color: var(--accent-teal-dark);
   text-decoration: none;
   cursor: pointer;
+  transform: translateZ(15px);
 }
 
 .card-link:hover {
@@ -563,7 +594,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 44px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-3d);
   position: relative;
 }
 
@@ -607,6 +638,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 .option-btn:hover {
   background: rgba(27, 122, 130, 0.08) !important;
   border-color: var(--accent-teal);
+  transform: translateY(-2px) translateZ(8px);
 }
 
 .option-btn.selected {
@@ -627,6 +659,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transform: translateZ(15px);
 }
 
 .score-gauge {
@@ -713,6 +746,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 28px;
+  perspective: 1000px;
 }
 
 .insight-card {
@@ -729,7 +763,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 }
 
 .insight-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(12px);
   border-color: var(--border-teal);
   box-shadow: var(--shadow-md);
 }
@@ -827,7 +861,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 40px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-3d);
 }
 
 .form-group {
@@ -1026,6 +1060,10 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 
   .diagnostic-steps {
     grid-template-columns: 1fr;
+  }
+
+  .hero-3d-stage {
+    display: none;
   }
 }
 

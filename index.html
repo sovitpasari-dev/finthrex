@@ -40,8 +40,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Cache-Busted Stylesheet v4.0 -->
-  <link rel="stylesheet" href="styles.css?v=4.0">
+  <!-- Three.js 3D Engine Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Cache-Busted Stylesheet v5.0 -->
+  <link rel="stylesheet" href="styles.css?v=5.0">
 
   <!-- JSON-LD ProfessionalService Schema -->
   <script type="application/ld+json">
@@ -62,22 +65,10 @@
       "addressRegion": "Karnataka"
     },
     "areaServed": [
-      {
-        "@type": "AdministrativeArea",
-        "name": "Gurgaon"
-      },
-      {
-        "@type": "AdministrativeArea",
-        "name": "Mumbai"
-      },
-      {
-        "@type": "AdministrativeArea",
-        "name": "Bengaluru"
-      },
-      {
-        "@type": "AdministrativeArea",
-        "name": "Kolkata"
-      }
+      { "@type": "AdministrativeArea", "name": "Gurgaon" },
+      { "@type": "AdministrativeArea", "name": "Mumbai" },
+      { "@type": "AdministrativeArea", "name": "Bengaluru" },
+      { "@type": "AdministrativeArea", "name": "Kolkata" }
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -149,7 +140,7 @@
   </header>
 
   <main>
-    <!-- Hero Section (Home) -->
+    <!-- Hero Section (With 3D WebGL Canvas Stage) -->
     <section id="hero" class="hero" aria-labelledby="heroHeading">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -158,7 +149,7 @@
             <span>RBI Digital Lending Compliance Framework Status: 100% Active</span>
           </div>
           <span class="eyebrow">FINTECH REGULATORY ADVISORY INDIA</span>
-          <h1 id="heroHeading" class="hero-title">RBI Digital Lending Compliance & <span class="text-gold">Fintech Regulatory Advisory India</span></h1>
+          <h1 id="heroHeading" class="hero-title">Regulatory Architecture for <span class="text-gold">Indian Digital Finance</span></h1>
           <p class="hero-desc">Finthrex Advisory translates complex RBI master directions into compliant product structures. We secure uninterrupted digital lending operations, FLDG arrangement structuring, and institutional credibility.</p>
           
           <div class="hero-actions">
@@ -167,15 +158,15 @@
           </div>
 
           <div class="hero-stats">
-            <div>
+            <div class="tilt-3d-card">
               <div class="stat-number">4 Hubs</div>
               <div class="stat-label">Gurgaon • Mumbai • Bengaluru • Kolkata</div>
             </div>
-            <div>
+            <div class="tilt-3d-card">
               <div class="stat-number">100%</div>
               <div class="stat-label">RBI Master Direction Alignment</div>
             </div>
-            <div>
+            <div class="tilt-3d-card">
               <div class="stat-number">FLDG & CLM</div>
               <div class="stat-label">Institutional Ready Models</div>
             </div>
@@ -183,7 +174,10 @@
         </div>
 
         <div class="hero-media">
-          <div class="hero-card">
+          <!-- Interactive 3D WebGL Element Stage -->
+          <div id="hero3DCanvas" class="hero-3d-stage"></div>
+
+          <div class="hero-card tilt-3d-card">
             <img src="https://assets.zyrosite.com/AWGOZW1UsMaNlper/yxrrlr-b7JCZQ3SEh4e8kL0.png" alt="Finthrex Advisory Corporate Headquarters in Bengaluru delivering RBI digital lending compliance and NBFC advisory" class="hero-img" width="612" height="600" loading="eager">
             <div class="hero-overlay">
               <span class="overlay-tag">Headquarters Architecture</span>
@@ -205,7 +199,7 @@
 
         <div class="practice-grid">
           <!-- Service 1 -->
-          <article class="practice-card" id="cardLending">
+          <article class="practice-card tilt-3d-card" id="cardLending">
             <div class="practice-icon" aria-hidden="true">⚖️</div>
             <h3 class="practice-title">Lending Architecture & FLDG Arrangement Structuring</h3>
             <p class="practice-desc">Structuring Default Loss Guarantee (FLDG) arrangements, co-lending frameworks (CLM-2), and LSP outsourcing integrations under current RBI digital lending guidelines.</p>
@@ -213,7 +207,7 @@
           </article>
 
           <!-- Service 2 -->
-          <article class="practice-card" id="cardAudits">
+          <article class="practice-card tilt-3d-card" id="cardAudits">
             <div class="practice-icon" aria-hidden="true">🔍</div>
             <h3 class="practice-title">Compliance Audits & Co-Lending Framework Compliance</h3>
             <p class="practice-desc">Rigorous regulatory risk assessments of platforms, backend escrow transaction flows, DLA interfaces, and bank-NBFC co-lending underwriting structures.</p>
@@ -221,7 +215,7 @@
           </article>
 
           <!-- Service 3 -->
-          <article class="practice-card" id="cardLicensing">
+          <article class="practice-card tilt-3d-card" id="cardLicensing">
             <div class="practice-icon" aria-hidden="true">🏛️</div>
             <h3 class="practice-title">NBFC Registration Advisory & PA Authorization</h3>
             <p class="practice-desc">End-to-end NBFC registration advisory, Payment Aggregator (PA-P / PA-CB) authorization, net owned fund compliance, and RBI representations.</p>
@@ -229,7 +223,7 @@
           </article>
 
           <!-- Service 4 -->
-          <article class="practice-card" id="cardPrivacy">
+          <article class="practice-card tilt-3d-card" id="cardPrivacy">
             <div class="practice-icon" aria-hidden="true">🔒</div>
             <h3 class="practice-title">Platform Risk & DPDP Data Privacy Audits</h3>
             <p class="practice-desc">Navigating DPDP Act data sovereignty within digital lending apps, including contact storage bans, localized servers, and consent manager handles.</p>
@@ -248,7 +242,7 @@
           <p class="section-desc">Self-assess your platform's operational model, default guarantee caps, and data routing against current RBI inspection parameters.</p>
         </div>
 
-        <div class="diagnostic-container" id="diagnosticContainer">
+        <div class="diagnostic-container tilt-3d-card" id="diagnosticContainer">
           <!-- Interactive JS renders diagnostic steps here -->
         </div>
       </div>
@@ -258,7 +252,7 @@
     <section class="section" aria-labelledby="proofHeading">
       <div class="container hero-grid">
         <div class="hero-media">
-          <div class="hero-card">
+          <div class="hero-card tilt-3d-card">
             <img src="https://assets.zyrosite.com/AWGOZW1UsMaNlper/tyek1r-u6NY0ILWYog02APd.png" alt="Finthrex Advisory digital compliance audit interface displaying real-time audit trail logs for RBI inspections" class="hero-img" width="461" height="461" loading="lazy">
             <div class="hero-overlay">
               <span class="overlay-tag">Audit Trail Interface</span>
@@ -317,7 +311,7 @@
           <p style="margin-bottom:20px;">Finthrex Advisory is a leading fintech regulatory advisory firm India. Our team of RBI compliance experts bridges the gap between complex circulars and scalable product design.</p>
 
           <div class="standards-list">
-            <div class="standard-item">
+            <div class="standard-item tilt-3d-card">
               <div class="standard-num">01</div>
               <div>
                 <h4 style="color:var(--text-heading);">ARCHITECTURE</h4>
@@ -325,7 +319,7 @@
               </div>
             </div>
 
-            <div class="standard-item">
+            <div class="standard-item tilt-3d-card">
               <div class="standard-num">02</div>
               <div>
                 <h4 style="color:var(--text-heading);">ASSURANCE</h4>
@@ -333,7 +327,7 @@
               </div>
             </div>
 
-            <div class="standard-item">
+            <div class="standard-item tilt-3d-card">
               <div class="standard-num">03</div>
               <div>
                 <h4 style="color:var(--text-heading);">STRATEGY</h4>
@@ -344,11 +338,11 @@
         </div>
 
         <div>
-          <div class="hero-card" style="margin-bottom:24px;">
+          <div class="hero-card tilt-3d-card" style="margin-bottom:24px;">
             <img src="https://assets.zyrosite.com/AWGOZW1UsMaNlper/gxapl8-RpV8o9zNF2oyrU1F.png" alt="Finthrex Advisory corporate building columns representing structural regulatory architecture in India" class="hero-img" style="height:360px;" width="663" height="663" loading="lazy">
           </div>
 
-          <div class="locations-bar">
+          <div class="locations-bar tilt-3d-card">
             <div>
               <div class="location-name">Gurgaon</div>
               <div class="location-sub">NCR Hub</div>
@@ -384,7 +378,7 @@
           </div>
         </div>
 
-        <div class="form-card">
+        <div class="form-card tilt-3d-card">
           <form id="consultationForm">
             <div class="form-group">
               <label class="form-label" for="formName">Full Name</label>
@@ -481,7 +475,7 @@
     </div>
   </div>
 
-  <!-- Cache-Busted Application JS Script v4.0 -->
-  <script src="app.js?v=4.0"></script>
+  <!-- Cache-Busted Application JS Script v5.0 -->
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>

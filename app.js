@@ -1,10 +1,10 @@
 /* ----------------------------------------------------
-   FINTHREX ADVISORY - DYNAMIC ROUTING & INTERACTIVE APP LOGIC
-   Includes Dynamic Metadata Routing, Diagnostic Score Calculator,
-   Regulatory Insights Search/Filtering, and Intake Handlers.
+   FINTHREX ADVISORY - 3D WEBGL ENGINE & INTERACTIVE LOGIC
+   Includes Three.js 3D Rotating Sphere Stage, Interactive 3D Card Tilt,
+   Dynamic Metadata Router, Diagnostic Calculator & Insights Engine.
    ---------------------------------------------------- */
 
-// Per-Page / Section Metadata Configuration (SEO Strict Limits)
+// Per-Page / Section Metadata Configuration
 const SEO_CONFIG = {
   home: {
     title: "RBI Digital Lending Compliance | Fintech Regulatory Advisory India",
@@ -141,13 +141,161 @@ function switchSectionView(sectionKey) {
   updatePageMetadata(sectionKey);
 }
 
+// ----------------------------------------------------
+// 3D WebGL Engine (Three.js Interactive Sphere Stage)
+// ----------------------------------------------------
+function init3DHeroCanvas() {
+  const container = document.getElementById('hero3DCanvas');
+  if (!container || typeof THREE === 'undefined') return;
+
+  const width = container.clientWidth || 600;
+  const height = container.clientHeight || 600;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.z = 18;
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // 1. Outer Wireframe Regulatory Sphere
+  const outerGeo = new THREE.IcosahedronGeometry(6.5, 2);
+  const outerMat = new THREE.MeshBasicMaterial({
+    color: 0x1b7a82,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.35
+  });
+  const outerMesh = new THREE.Mesh(outerGeo, outerMat);
+  scene.add(outerMesh);
+
+  // 2. Inner Metallic Gold Core
+  const innerGeo = new THREE.IcosahedronGeometry(4.2, 1);
+  const innerMat = new THREE.MeshPhongMaterial({
+    color: 0xb8860b,
+    emissive: 0x3a2503,
+    specular: 0xffd700,
+    shininess: 60,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.65
+  });
+  const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+  scene.add(innerMesh);
+
+  // 3. Orbit Ring (Compliance Axis)
+  const ringGeo = new THREE.TorusGeometry(8.5, 0.08, 16, 100);
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0xd4af37,
+    transparent: true,
+    opacity: 0.4
+  });
+  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+  ringMesh.rotation.x = Math.PI / 3;
+  scene.add(ringMesh);
+
+  // 4. Floating Particle Nodes
+  const particleGeo = new THREE.BufferGeometry();
+  const particleCount = 120;
+  const posArray = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount * 3; i++) {
+    posArray[i] = (Math.random() - 0.5) * 22;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+  const particleMat = new THREE.PointsMaterial({
+    size: 0.15,
+    color: 0x1b7a82,
+    transparent: true,
+    opacity: 0.7
+  });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+
+  const pointLight = new THREE.PointLight(0xd4af37, 1.5, 100);
+  pointLight.position.set(10, 10, 10);
+  scene.add(pointLight);
+
+  // Mouse Parallax Interaction
+  let mouseX = 0;
+  let mouseY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  // Animation Loop
+  function animate() {
+    requestAnimationFrame(animate);
+
+    outerMesh.rotation.y += 0.003;
+    outerMesh.rotation.x += 0.0015;
+
+    innerMesh.rotation.y -= 0.004;
+    innerMesh.rotation.z += 0.002;
+
+    ringMesh.rotation.z += 0.0025;
+
+    particles.rotation.y += 0.001;
+
+    // Smooth Mouse Parallax Shift
+    scene.rotation.y += (mouseX * 0.3 - scene.rotation.y) * 0.05;
+    scene.rotation.x += (mouseY * 0.3 - scene.rotation.x) * 0.05;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Resize Handler
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth || 600;
+    const h = container.clientHeight || 600;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+}
+
+// ----------------------------------------------------
+// 3D Card Tilt Effect (Perspective Parallax)
+// ----------------------------------------------------
+function init3DTiltCards() {
+  const cards = document.querySelectorAll('.tilt-3d-card');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(12px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    });
+  });
+}
+
 // Render Diagnostic Steps
 function renderDiagnosticStep(stepIndex) {
   const container = document.getElementById('diagnosticContainer');
   if (!container) return;
 
   if (stepIndex >= DIAGNOSTIC_QUESTIONS.length) {
-    // Render Results Summary
     let totalScore = 0;
     Object.values(selectedDiagnosticOptions).forEach(score => totalScore += score);
     
@@ -250,7 +398,7 @@ function renderInsights(items) {
   }
 
   grid.innerHTML = items.map(item => `
-    <article class="insight-card" onclick="openInsightModal('${item.id}')">
+    <article class="insight-card tilt-3d-card" onclick="openInsightModal('${item.id}')">
       <div>
         <span class="insight-tag">${item.tag}</span>
         <h3 class="insight-title">${item.title}</h3>
@@ -259,6 +407,9 @@ function renderInsights(items) {
       <span class="card-link" style="margin-top:16px;">Read Brief & Technical Requirements →</span>
     </article>
   `).join('');
+
+  // Re-bind 3D tilt on newly rendered insight cards
+  init3DTiltCards();
 }
 
 function filterInsights(category, btnElement) {
@@ -337,6 +488,12 @@ function openConsultationModal(contextSubject) {
 
 // App Initialization
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize 3D WebGL Canvas Engine
+  init3DHeroCanvas();
+
+  // Initialize Interactive 3D Card Tilt
+  init3DTiltCards();
+
   // Initialize Diagnostic Tool
   renderDiagnosticStep(0);
 
