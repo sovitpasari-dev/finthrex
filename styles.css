@@ -111,7 +111,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent-teal);
+  color: var(--accent-teal-dark);
   margin-bottom: 12px;
 }
 
@@ -164,7 +164,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   color: var(--text-main);
   border-color: var(--border-subtle);
   backdrop-filter: blur(10px);
@@ -448,6 +448,17 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   font-size: 1.1rem;
 }
 
+/* Specific Section Backgrounds for Seamless Cream Flow */
+.diagnostic-section {
+  background: var(--bg-cream-deep);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.insights-section {
+  background: var(--bg-cream-page);
+}
+
 /* Practice Areas Grid */
 .practice-grid {
   display: grid;
@@ -522,7 +533,7 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   gap: 8px;
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--accent-teal);
+  color: var(--accent-teal-dark);
   text-decoration: none;
   cursor: pointer;
 }
