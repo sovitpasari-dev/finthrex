@@ -265,10 +265,10 @@ function init3DHeroCanvas() {
 }
 
 // ----------------------------------------------------
-// 3D Card Tilt Effect (Perspective Parallax)
+// Ultra 3D Interactive Card Parallax Tilt Handlers
 // ----------------------------------------------------
 function init3DTiltCards() {
-  const cards = document.querySelectorAll('.tilt-3d-card');
+  const cards = document.querySelectorAll('.practice-card, .tilt-3d-card');
 
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -278,14 +278,15 @@ function init3DTiltCards() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg
-      const rotateY = ((x - centerX) / centerX) * 8;
+      // Calculate 3D rotation angles
+      const rotateX = ((y - centerY) / centerY) * -12; // 12 deg max
+      const rotateY = ((x - centerX) / centerX) * 12;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(12px)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(22px) scale(1.02)`;
     });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
     });
   });
 }

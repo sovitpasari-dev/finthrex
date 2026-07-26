@@ -1,5 +1,5 @@
 /* ----------------------------------------------------
-   FINTHREX ADVISORY - LUXURY CREAM THEME & 3D STYLESHEET
+   FINTHREX ADVISORY - LUXURY CREAM THEME & ULTRA 3D STYLESHEET
    Theme: Warm Ivory, Cream, Deep Charcoal, Metallic Gold & 3D WebGL Effects
    ---------------------------------------------------- */
 
@@ -41,7 +41,7 @@
   --shadow-sm: 0 4px 12px rgba(44, 34, 18, 0.05);
   --shadow-md: 0 8px 24px rgba(44, 34, 18, 0.08);
   --shadow-lg: 0 16px 40px rgba(44, 34, 18, 0.12);
-  --shadow-3d: 0 20px 45px rgba(27, 122, 130, 0.18), 0 8px 18px rgba(184, 134, 11, 0.12);
+  --shadow-3d: 0 24px 50px rgba(27, 122, 130, 0.2), 0 12px 24px rgba(184, 134, 11, 0.15);
 
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -452,37 +452,8 @@ p { color: var(--text-muted); font-size: 1.05rem; }
 /* 3D Tilt Cards Dynamic Perspective */
 .tilt-3d-card {
   transform-style: preserve-3d;
-  transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   will-change: transform;
-}
-
-.tilt-3d-card:hover {
-  box-shadow: var(--shadow-3d);
-  border-color: var(--border-teal);
-}
-
-/* Glassmorphism & Section Style */
-.section {
-  padding: 90px 0;
-  position: relative;
-  background-color: var(--bg-cream-page);
-  perspective: 1200px;
-}
-
-.section-header {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 60px;
-}
-
-.section-header.left-align {
-  text-align: left;
-  margin-left: 0;
-}
-
-.section-desc {
-  margin-top: 16px;
-  font-size: 1.1rem;
 }
 
 /* Specific Section Backgrounds for Seamless Cream Flow */
@@ -508,68 +479,111 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   background: #faf7f2 !important;
 }
 
-/* Practice Areas Grid */
+/* ----------------------------------------------------
+   ULTRA 3D PRACTICE CARDS (4 TABS)
+   ---------------------------------------------------- */
 .practice-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
-  perspective: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 32px;
+  perspective: 1200px;
 }
 
 .practice-card {
-  background: var(--bg-cream-card) !important;
-  border: 1px solid var(--border-subtle);
+  background: linear-gradient(145deg, #ffffff 0%, #fcfaf6 100%) !important;
+  border: 1px solid rgba(184, 134, 11, 0.3);
   border-radius: var(--radius-lg);
-  padding: 36px 30px;
+  padding: 40px 32px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 14px 35px rgba(44, 34, 18, 0.08), 0 4px 12px rgba(27, 122, 130, 0.06);
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+  cursor: pointer;
 }
 
+/* 3D Top Metallic Accent Bar */
 .practice-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-teal) 0%, var(--accent-gold) 100%);
-  opacity: 0;
-  transition: var(--transition-fast);
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-teal) 0%, var(--accent-gold-light) 50%, var(--accent-teal) 100%);
+  box-shadow: 0 2px 10px rgba(184, 134, 11, 0.4);
 }
 
-.practice-card:hover::before {
-  opacity: 1;
+/* 3D Specular Light Sweep Effect */
+.practice-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transition: left 0.7s ease;
+  pointer-events: none;
 }
 
+.practice-card:hover::after {
+  left: 150%;
+}
+
+.practice-card:hover {
+  border-color: var(--accent-teal);
+  box-shadow: 0 24px 50px rgba(27, 122, 130, 0.2), 0 12px 24px rgba(184, 134, 11, 0.15);
+}
+
+/* 3D Layered Elements (Z-Depth Layering) */
 .practice-icon {
-  width: 52px;
-  height: 52px;
+  width: 60px;
+  height: 60px;
   border-radius: var(--radius-md);
-  background: rgba(27, 122, 130, 0.08);
-  border: 1px solid var(--border-teal);
+  background: linear-gradient(135deg, rgba(27, 122, 130, 0.12) 0%, rgba(184, 134, 11, 0.12) 100%);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 6px 16px rgba(27, 122, 130, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-teal-dark);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 24px;
-  transform: translateZ(20px);
+  transform: translateZ(35px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.practice-card:hover .practice-icon {
+  transform: translateZ(45px);
+  box-shadow: 0 10px 24px rgba(27, 122, 130, 0.25);
 }
 
 .practice-title {
-  margin-bottom: 12px;
-  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  margin-bottom: 14px;
+  font-family: var(--font-serif);
   color: var(--text-heading);
-  transform: translateZ(15px);
+  transform: translateZ(25px);
+  transition: transform 0.25s ease;
+}
+
+.practice-card:hover .practice-title {
+  transform: translateZ(35px);
+  color: var(--accent-teal-dark);
 }
 
 .practice-desc {
   font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 24px;
+  line-height: 1.65;
+  margin-bottom: 28px;
   color: var(--text-muted);
-  transform: translateZ(10px);
+  transform: translateZ(15px);
+  transition: transform 0.25s ease;
+}
+
+.practice-card:hover .practice-desc {
+  transform: translateZ(22px);
 }
 
 .card-link {
@@ -581,11 +595,19 @@ p { color: var(--text-muted); font-size: 1.05rem; }
   color: var(--accent-teal-dark);
   text-decoration: none;
   cursor: pointer;
-  transform: translateZ(15px);
+  padding: 8px 16px;
+  background: rgba(27, 122, 130, 0.08);
+  border: 1px solid var(--border-teal);
+  border-radius: var(--radius-md);
+  transform: translateZ(20px);
+  transition: all 0.25s ease;
 }
 
-.card-link:hover {
-  color: var(--accent-gold-dark);
+.practice-card:hover .card-link {
+  transform: translateZ(30px);
+  background: var(--accent-teal);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(27, 122, 130, 0.35);
 }
 
 /* Interactive Diagnostic Tool Component */
